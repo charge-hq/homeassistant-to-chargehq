@@ -1,0 +1,6 @@
+binary_sensor:
+  - platform: command_line
+    name: ChargeHQ Stats
+    command: >
+      curl -X POST -H 'Content-Type:application/json' -d '{ "apiKey":"xxxxx-xxxx-xxxxx-xxxx-xxxxxxxx","siteMeters":{"consumption_kw":{{states('sensor.home_power_consumption_total')|float(0)/1000}},"net_import_kw":{{states('sensor.grid_power_consumption_total')|float(0)/1000}},"production_kw":{{states('sensor.solarnet_power_photovoltaics')|float(0)/1000}},"exported_kwh":{{states('sensor.victron_grid_energy_reverse_total_30')|float(0)/1000}},"imported_kwh":{{states('sensor.victron_grid_energy_forward_total_30')|float(0)/1000}},"battery_discharge_kw":{{states('sensor.pv_battery_power')|float(0)/1000}},"battery_soc":{{states('sensor.battery_soc')|float(0)/100}}} }' https://api.chargehq.net/api/public/push-solar-data
+    scan_interval: 30
